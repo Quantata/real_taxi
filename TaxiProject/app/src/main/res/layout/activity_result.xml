@@ -1,9 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ResultActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <ImageView
+        android:id="@+id/resultView"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_below="@+id/backhome"
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@drawable/taxi"/>
+
+    <TextView
+        android:id="@+id/resultText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/resultView"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:lineSpacingExtra="5dp"
+        android:gravity="center"
+        android:textSize="20dp"/>
+
+    <Button
+        android:id="@+id/backhome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="20dp"
+        android:text="돌아가기"/>
+
+        <Button
+            android:id="@+id/emergency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+            android:visibility="visible"
+            android:drawableLeft="@drawable/siren"
+            android:text="신고하기"/>
+</RelativeLayout>
