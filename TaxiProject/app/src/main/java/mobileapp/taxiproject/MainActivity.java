@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
 
         TedPermission.with(this)
                 .setPermissionListener(permissionListener)
-                .setRationaleMessage("'Taxi 맞니?'를 실행하기 위해서는 위치 접근 권한이 필요합니다.")
+                .setRationaleMessage("'ARE U TAXI?'를 실행하기 위해서는 카메라, 갤러리, 저장소 권한이 필요합니다.")
                 .setDeniedMessage("[설정] > [권한]에서 권한을 허용할 수 있습니다.")
                 .setPermissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.INTERNET)
                 .setGotoSettingButton(true)
