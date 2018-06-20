@@ -10,7 +10,7 @@
         android:id="@+id/resultView"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:layout_below="@+id/backhome"
+        android:layout_marginTop="35dp"
         android:layout_centerHorizontal="true"
         app:srcCompat="@drawable/taxi"/>
 
@@ -25,13 +25,6 @@
         android:gravity="center"
         android:textSize="20dp"/>
 
-    <Button
-        android:id="@+id/backhome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="20dp"
-        android:text="돌아가기"/>
 
         <Button
             android:id="@+id/emergency"

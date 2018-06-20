@@ -17,12 +17,9 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_result);
 
         Button emergency = (Button) findViewById(R.id.emergency);
-        Button backhome = (Button) findViewById(R.id.backhome);
         TextView textResult = (TextView) findViewById(R.id.resultText);
 
         emergency.setOnClickListener(this);
-        backhome.setOnClickListener(this);
-
         boolean isTaxi = false;
 
 
