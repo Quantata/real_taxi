@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ResultActivity">
 
     <android.support.v7.widget.Toolbar
         android:id='@+id/toolbar'
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#ffb300">
+        android:background="#ffa125">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text = "ARE U TAXI?"
+            android:text="ARE U TAXI?"
             android:textColor="#ffffff"
             android:textSize="20dp"
             android:textStyle="bold" />
@@ -27,33 +27,37 @@
         android:id="@+id/resultView"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:scaleType="fitXY"
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"
         android:layout_below="@+id/toolbar"
-        app:srcCompat="@drawable/taxi"/>
+        android:layout_centerHorizontal="true"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/car_num1" />
 
     <TextView
         android:id="@+id/resultText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/resultView"
-        android:layout_marginTop="30dp"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        android:lineSpacingExtra="5dp"
+        android:layout_marginTop="30dp"
         android:gravity="center"
-        android:textSize="20dp"/>
+        android:lineSpacingExtra="5dp"
+        android:textSize="18dp" />
 
+    <Button
+        android:id="@+id/emergency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/btn_border2"
+        android:drawableLeft="@drawable/siren"
+        android:paddingBottom="15dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:paddingTop="15dp"
+        android:text=" 신고하기"
+        android:visibility="visible" />
 
-        <Button
-            android:id="@+id/emergency"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="20dp"
-            android:visibility="visible"
-            android:drawableLeft="@drawable/siren"
-            android:text="신고하기"/>
 </RelativeLayout>

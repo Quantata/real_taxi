@@ -38,11 +38,11 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
 
         if(isTaxi==true){
             emergency.setVisibility(View.INVISIBLE);
-            textResult.setText("택시가 맞습니다!");
+            textResult.setText("택시가 맞습니다!\n안심하고 타세요!!");
         }
         else{
             emergency.setVisibility(View.VISIBLE);
-            textResult.setText("헉!택시가 아닙니다! 조심하세요!");
+            textResult.setText("택시가 아닙니다!\n조심하세요!!");
         }
     }
 

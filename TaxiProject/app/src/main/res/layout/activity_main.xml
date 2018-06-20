@@ -11,7 +11,7 @@
         android:id='@+id/toolbar'
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#ff9e00">
+        android:background="#ffa125">
 
         <TextView
             android:layout_width="wrap_content"
@@ -24,33 +24,32 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        android:text="Select the image"
-        android:textSize="18dp"
-        android:textStyle="bold" />
-
     <ImageView
         android:id="@+id/imageIv"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:layout_below="@+id/title"
+        android:layout_below="@+id/toolbar"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
         android:scaleType="fitXY"
-        android:background="#919191"/>
+        android:background="#b3b3b3"/>
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageIv"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:text="Select the Image"
+        android:textSize="15dp"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:id="@+id/btnLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageIv"
-        android:layout_marginTop="40dp"
+        android:layout_below="@+id/title"
+        android:layout_marginTop="20dp"
         android:gravity="center_horizontal">
 
         <ImageButton
@@ -76,7 +75,7 @@
     <Button
         android:id="@+id/detectBtn"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="1.3dp"
         android:background="@drawable/btn_border"

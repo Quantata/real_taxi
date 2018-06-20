@@ -2,7 +2,11 @@ package mobileapp.taxiproject;
 
 import android.Manifest;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -37,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private final int GALLERY_REQUEST_CODE = 2;
 
     Uri uri;
+    String mCurrentPhotoPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
         if (!directory_TaxiProject.exists())
             directory_TaxiProject.mkdir();
 
+//        mCurrentPhotoPath = storageDir.getAbsolutePath();
         return storageDir;
     }
 
@@ -154,6 +160,5 @@ public class MainActivity extends AppCompatActivity {
         cameraBtn = (ImageButton) findViewById(R.id.cameraBtn);
         imageIv = (ImageView) findViewById(R.id.imageIv);
     }
-
 
 }
