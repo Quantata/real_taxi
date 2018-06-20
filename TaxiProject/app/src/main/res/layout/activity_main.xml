@@ -30,8 +30,8 @@
         android:layout_height="250dp"
         android:layout_below="@+id/toolbar"
         android:layout_centerHorizontal="true"
-        android:scaleType="fitXY"
-        android:background="#b3b3b3"/>
+        android:background="#b5b5b5"
+        android:scaleType="fitXY" />
 
     <TextView
         android:id="@+id/title"
@@ -39,37 +39,37 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/imageIv"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="50dp"
         android:text="Select the Image"
         android:textSize="15dp"
         android:textStyle="bold" />
 
     <LinearLayout
         android:id="@+id/btnLayout"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="70dp"
-        android:background="@drawable/line"
-        android:layout_below="@+id/imageIv"
         android:layout_width="match_parent"
-        android:layout_height="45dp">
+        android:layout_height="50dp"
+        android:layout_below="@+id/title"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/line"
+        android:gravity="center_horizontal">
 
         <ImageButton
             android:id="@+id/cameraBtn"
-            android:background="@drawable/camera_font"
-            android:layout_marginRight="35dp"
-            android:layout_width="85dp"
-            android:layout_height="45dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_below="@+id/imageIv"
-            android:gravity="center_horizontal"/>
+            android:layout_marginRight="35dp"
+            android:background="@drawable/camera"
+            android:gravity="center_horizontal" />
 
         <ImageButton
             android:id="@+id/galleryBtn"
-            android:layout_marginLeft="35dp"
-            android:layout_width="85dp"
-            android:layout_height="45dp"
-            android:background="@drawable/gallery_font"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_below="@+id/imageIv"
+            android:layout_marginLeft="35dp"
             android:layout_toRightOf="@+id/cameraBtn"
+            android:background="@drawable/gallery"
             android:text="GALLERY" />
 
     </LinearLayout>

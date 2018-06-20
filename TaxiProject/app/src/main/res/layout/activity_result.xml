@@ -30,7 +30,7 @@
         android:layout_below="@+id/toolbar"
         android:layout_centerHorizontal="true"
         android:scaleType="fitXY"
-        app:srcCompat="@drawable/car_num1" />
+        android:background="#b5b5b5"/>
 
     <TextView
         android:id="@+id/resultText"
@@ -42,7 +42,7 @@
         android:layout_marginTop="30dp"
         android:gravity="center"
         android:lineSpacingExtra="5dp"
-        android:textSize="18dp" />
+        android:textSize="15dp" />
 
     <Button
         android:id="@+id/emergency"

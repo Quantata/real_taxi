@@ -44,7 +44,6 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
             path = cameraPath;
         }
 
-
         try {
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inSampleSize=2;
@@ -63,11 +62,11 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
 
         if(isTaxi==true){
             emergency.setVisibility(View.INVISIBLE);
-            textResult.setText("택시가 맞습니다!");
+            textResult.setText("택시가 맞습니다!\n안심하고 타세요!!");
         }
         else{
             emergency.setVisibility(View.VISIBLE);
-            textResult.setText("헉!택시가 아닙니다! 조심하세요!");
+            textResult.setText("택시가 아닙니다!\n조심하세요!!");
         }
     }
 
@@ -98,13 +97,6 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
         return 0;
     }
 
-    /**
-     * 이미지를 회전시킵니다.
-     *
-     * @param bitmap 비트맵 이미지
-     * @param degrees 회전 각도
-     * @return 회전된 이미지
-     */
     public Bitmap rotate(Bitmap bitmap, int degrees)
     {
         if(degrees != 0 && bitmap != null)
@@ -144,6 +136,5 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
         finish();
-
     }
 }
