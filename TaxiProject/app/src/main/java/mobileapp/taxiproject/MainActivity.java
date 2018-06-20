@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button cameraBtn;
     Button galleryBtn;
-    Button resultBtn;
+    Button detectBtn;
     ImageView imageIv;
     Boolean permissionBoolean = false;
 
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        resultBtn.setOnClickListener(new View.OnClickListener() { //결과 화면으로 이동
+        detectBtn.setOnClickListener(new View.OnClickListener() { //결과 화면으로 이동
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, ResultActivity.class);
@@ -137,10 +137,11 @@ public class MainActivity extends AppCompatActivity {
                 .setGotoSettingButton(true)
                 .check();
 
-        cameraBtn = (Button) findViewById(R.id.cameraBtn);
+        detectBtn = (Button) findViewById(R.id.detectBtn);
         galleryBtn = (Button) findViewById(R.id.galleryBtn);
-        resultBtn = (Button) findViewById(R.id.resultBtn);
+        cameraBtn = (Button) findViewById(R.id.cameraBtn);
         imageIv = (ImageView) findViewById(R.id.imageIv);
-
     }
+
+
 }

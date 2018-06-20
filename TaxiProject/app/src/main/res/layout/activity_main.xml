@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -41,8 +42,8 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/resultBtn"
-        android:text="결과보기"
+        android:id="@+id/detectBtn"
+        android:text="DETECT"
         android:layout_below="@+id/btnLayout"
         android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
