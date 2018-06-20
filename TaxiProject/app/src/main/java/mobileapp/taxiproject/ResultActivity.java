@@ -10,19 +10,14 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.bumptech.glide.Glide;
 
 public class ResultActivity extends AppCompatActivity implements View.OnClickListener {
 
-    boolean isTaxi = false;
-    ImageView resultView;
+    String isTaxi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +26,10 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
 
         Button emergency = (Button) findViewById(R.id.emergency);
         TextView textResult = (TextView) findViewById(R.id.resultText);
-        resultView = (ImageView) findViewById(R.id.resultView);
+        ImageView resultView = (ImageView) findViewById(R.id.resultView);
 
         Intent intent = getIntent();
+        Uri uri = intent.getParcelableExtra("uri");
         String cameraPath = intent.getStringExtra("cameraPath");
         String galleryPath = intent.getStringExtra("galleryPath");
 
@@ -45,6 +41,8 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
         }
 
         try {
+//            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+//            resultView.setImageBitmap(bitmap);
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inSampleSize=2;
             Bitmap bitmap = BitmapFactory.decodeFile(path, options);
@@ -53,20 +51,20 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
             int exifDegree = exifOrientationToDegrees(exifOrientation);
             bitmap = rotate(bitmap, exifDegree);
             resultView.setImageBitmap(bitmap);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         emergency.setOnClickListener(this);
 
-        if(isTaxi==true){
+
+        if(intent.getStringExtra("isTaxi").equals("ok")){
             emergency.setVisibility(View.INVISIBLE);
             textResult.setText("택시가 맞습니다!\n안심하고 타세요!!");
         }
         else{
             emergency.setVisibility(View.VISIBLE);
-            textResult.setText("택시가 아닙니다!\n조심하세요!!");
+            textResult.setText("택시가 아닙니다!\\n조심하세요!!\"");
         }
     }
 
