@@ -20,6 +20,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
@@ -41,6 +42,11 @@ public class MainActivity extends AppCompatActivity {
     private final int GALLERY_REQUEST_CODE = 2;
 
     Uri uri;
+    String mCurrentPhotoPath;
+    String galleryPath;
+    String cameraPath;
+
+    Glide glide;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         startActivity(new Intent(this, SplashActivity.class));
+
+
 
         init();
 
@@ -85,12 +93,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, ResultActivity.class);
                 intent.putExtra("uri", uri);
+                intent.putExtra("cameraPath", cameraPath);
+                intent.putExtra("galleryPath", galleryPath);
                 startActivity(intent);
+                finish();
             }
         });
     }
 
-    Uri imageUri;
     private File createImageFile() throws IOException {
         //Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
@@ -101,7 +111,8 @@ public class MainActivity extends AppCompatActivity {
         if (!directory_TaxiProject.exists())
             directory_TaxiProject.mkdir();
 
-        imageUri = Uri.fromFile(storageDir);
+//        imageUri = Uri.fromFile(storageDir);
+        mCurrentPhotoPath = storageDir.getAbsolutePath();
 
         return storageDir;
     }
@@ -120,21 +131,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK) return;
-
         switch (requestCode) {
             case CAMERA_REQUEST_CODE:
                 try {
-                    String imagePath = imageUri.getPath();
 
-                    Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+                    cameraPath = mCurrentPhotoPath;
+                    Bitmap bitmap = BitmapFactory.decodeFile(cameraPath);
 
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                    ExifInterface exif = new ExifInterface(String.valueOf(imagePath));
+                    ExifInterface exif = new ExifInterface(String.valueOf(cameraPath));
                     int exifOrientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
                     int exifDegree = exifOrientationToDegrees(exifOrientation);
                     bitmap = rotate(bitmap, exifDegree);
-                    imageIv.setImageBitmap(bitmap);
-
+//                    imageIv.setImageBitmap(bitmap);
+                    Glide.with(MainActivity.this).load(bitmap).into(imageIv);
 
 
 
@@ -145,18 +155,19 @@ public class MainActivity extends AppCompatActivity {
 
             case GALLERY_REQUEST_CODE:
                 uri = data.getData();
+                galleryPath = getPath(uri);
                 try {
 //                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
 //                    imageIv.setImageBitmap(bitmap);
 
-                    String path = getPath(uri);
-
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                    ExifInterface exif = new ExifInterface(path);
+                    ExifInterface exif = new ExifInterface(galleryPath);
                     int exifOrientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
                     int exifDegree = exifOrientationToDegrees(exifOrientation);
                     bitmap = rotate(bitmap, exifDegree);
-                    imageIv.setImageBitmap(bitmap);
+//                    imageIv.setImageBitmap(bitmap);
+                    Glide.with(MainActivity.this).load(bitmap).into(imageIv);
+
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -232,7 +243,7 @@ public class MainActivity extends AppCompatActivity {
 
         TedPermission.with(this)
                 .setPermissionListener(permissionListener)
-                .setRationaleMessage("'Taxi 맞니?'를 실행하기 위해서는 위치 접근 권한이 필요합니다.")
+                .setRationaleMessage("'ARE U TAXI?'를 실행하기 위해서는 카메라, 갤러리, 저장소 권한이 필요합니다.")
                 .setDeniedMessage("[설정] > [권한]에서 권한을 허용할 수 있습니다.")
                 .setPermissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.INTERNET)
                 .setGotoSettingButton(true)
