@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -26,8 +27,8 @@ import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button cameraBtn;
-    Button galleryBtn;
+    ImageButton cameraBtn;
+    ImageButton galleryBtn;
     Button detectBtn;
     ImageView imageIv;
     Boolean permissionBoolean = false;
@@ -149,8 +150,8 @@ public class MainActivity extends AppCompatActivity {
                 .check();
 
         detectBtn = (Button) findViewById(R.id.detectBtn);
-        galleryBtn = (Button) findViewById(R.id.galleryBtn);
-        cameraBtn = (Button) findViewById(R.id.cameraBtn);
+        galleryBtn = (ImageButton) findViewById(R.id.galleryBtn);
+        cameraBtn = (ImageButton) findViewById(R.id.cameraBtn);
         imageIv = (ImageView) findViewById(R.id.imageIv);
     }
 

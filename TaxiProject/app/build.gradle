@@ -28,4 +28,7 @@ dependencies {
 
     // 권한 확인
     implementation 'gun0912.ted:tedpermission:2.1.1'
+
+    //circle image View
+    implementation 'de.hdodenhof:circleimageview:2.0.0'
 }

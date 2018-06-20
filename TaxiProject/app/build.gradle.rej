@@ -1,0 +1,10 @@
+diff a/TaxiProject/app/build.gradle b/TaxiProject/app/build.gradle	(rejected hunks)
+@@ -4,7 +4,7 @@
+     compileSdkVersion 27
+     defaultConfig {
+         applicationId "mobileapp.taxiproject"
+-        minSdkVersion 24
++        minSdkVersion 23
+         targetSdkVersion 27
+         versionCode 1
+         versionName "1.0"

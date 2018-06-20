@@ -7,7 +7,7 @@
     tools:context=".SplashActivity">
 
     <TextView
-        android:text="택시 맞니?"
+        android:text="ARE U TAXI?"
         android:textSize="25sp"
         android:textStyle="bold"
         android:layout_centerHorizontal="true"
