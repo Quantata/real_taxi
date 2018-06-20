@@ -1,15 +1,19 @@
 package mobileapp.taxiproject;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ResultActivity extends AppCompatActivity implements View.OnClickListener {
 
+    boolean isTaxi = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,10 +22,19 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
 
         Button emergency = (Button) findViewById(R.id.emergency);
         TextView textResult = (TextView) findViewById(R.id.resultText);
+        ImageView resultView = (ImageView) findViewById(R.id.resultView);
+
+        Intent intent = getIntent();
+        Uri uri = intent.getParcelableExtra("uri");
+
+        try {
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+            resultView.setImageBitmap(bitmap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         emergency.setOnClickListener(this);
-        boolean isTaxi = false;
-
 
         if(isTaxi==true){
             emergency.setVisibility(View.INVISIBLE);
@@ -39,12 +52,6 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.emergency:
                 startActivity(new Intent("android.intent.action.DIAL",
                         Uri.parse("tel:112")));
-                break;
-
-            case R.id.backhome:
-//                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-//                startActivity(intent);
-                onBackPressed();
                 break;
         }
     }

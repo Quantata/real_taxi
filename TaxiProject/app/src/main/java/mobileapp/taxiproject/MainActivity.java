@@ -4,9 +4,12 @@ import android.Manifest;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -15,7 +18,11 @@ import android.widget.Toast;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
     private final int CAMERA_REQUEST_CODE = 1;
     private final int GALLERY_REQUEST_CODE = 2;
+
+    Uri uri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +50,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, CAMERA_REQUEST_CODE);
+
+                File pictureFile = null;
+                try {
+                    pictureFile = createImageFile();
+                } catch (IOException e) {
+                    Toast.makeText(MainActivity.this, "pictureFile 에러", Toast.LENGTH_LONG).show();
+                }
+
+                if (pictureFile != null) {
+                    uri = FileProvider.getUriForFile(MainActivity.this, "mobileapp.taxiproject.fileprovider", pictureFile);
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+                    startActivityForResult(intent, CAMERA_REQUEST_CODE);
+                }
             }
         });
 
@@ -58,9 +79,23 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, ResultActivity.class);
+                intent.putExtra("uri", uri);
                 startActivity(intent);
             }
         });
+    }
+
+    private File createImageFile() throws IOException {
+        //Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "TaxiProject_" + timeStamp + ".jpg";
+        File storageDir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/TaxiProject/" + imageFileName);
+
+        File directory_TaxiProject = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/TaxiProject");
+        if (!directory_TaxiProject.exists())
+            directory_TaxiProject.mkdir();
+
+        return storageDir;
     }
 
     @Override
@@ -70,40 +105,16 @@ public class MainActivity extends AppCompatActivity {
 
         switch (requestCode) {
             case CAMERA_REQUEST_CODE:
-//                Uri takephoto = data.getData();
-//                Log.d("uri", "uri " + data.getData());
-//                String[] filePathColumn = {MediaStore.Images.Media.DATA};
-//                Cursor cursor = getContentResolver().query(takephoto, filePathColumn, null, null, null);
-//                cursor.moveToFirst();
-//                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-//                try {
-//                    String picturePath = cursor.getString(columnIndex);
-//                    cursor.close();
-//                    Bitmap photo = BitmapFactory.decodeFile(picturePath);
-//                    imageIv.setImageBitmap(photo);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-
+                try {
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                    imageIv.setImageBitmap(bitmap);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 break;
 
             case GALLERY_REQUEST_CODE:
-//                Uri selectedImage = data.getData();
-//                String[] filePathColumn = {MediaStore.Images.Media.DATA};
-//                Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-//                cursor.moveToFirst();
-//                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-//                try {
-//                    String picturePath = cursor.getString(columnIndex);
-//                    cursor.close();
-//                    Bitmap bitmap = BitmapFactory.decodeFile(picturePath);
-//                    imageIv.setImageBitmap(bitmap);
-//
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-
-                Uri uri = data.getData();
+                uri = data.getData();
                 try {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                     imageIv.setImageBitmap(bitmap);
