@@ -47,26 +47,30 @@
     <LinearLayout
         android:id="@+id/btnLayout"
         android:gravity="center_horizontal"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="70dp"
+        android:background="@drawable/line"
         android:layout_below="@+id/imageIv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="45dp">
+
+
 
         <ImageButton
             android:id="@+id/cameraBtn"
-
-            android:background="@drawable/camera"
-            android:layout_marginRight="20dp"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:background="@drawable/camera_font"
+            android:layout_marginRight="35dp"
+            android:layout_width="85dp"
+            android:layout_height="45dp"
             android:text="CAMERA" />
+
+
 
         <ImageButton
             android:id="@+id/galleryBtn"
-            android:layout_marginLeft="20dp"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:background="@drawable/gallery"
+            android:layout_marginLeft="35dp"
+            android:layout_width="85dp"
+            android:layout_height="45dp"
+            android:background="@drawable/gallery_font"
             android:layout_below="@+id/imageIv"
             android:layout_toRightOf="@+id/cameraBtn"
             android:text="GALLERY" />
