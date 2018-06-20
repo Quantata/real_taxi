@@ -34,6 +34,6 @@
         android:layout_marginBottom="19dp"
         android:gravity="center"
         android:text="ⓒ 2018. 권민하 김진아 문주영 안나연. all rights reserved. "
-        android:textSize="11dp" />
+        android:textSize="12dp" />
 
 </RelativeLayout>

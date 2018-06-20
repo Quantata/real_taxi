@@ -20,13 +20,11 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 finish();
             }
-        }, 3000);
+        }, 2000);
 
         ImageView taxiIv = (ImageView)findViewById(R.id.taxiIv);
         taxiIv.setBackground(new ShapeDrawable(new OvalShape()));
         taxiIv.setClipToOutline(true);
         taxiIv.bringToFront();
-
-
     }
 }
