@@ -70,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
     String galleryPath;
     String cameraPath;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPermissionGranted() { //권한이 모두 허용되고나서 실행됨
                 permissionBoolean = true;
-                Toast.makeText(MainActivity.this, "권한 허가", Toast.LENGTH_LONG).show();
+                //Toast.makeText(MainActivity.this, "권한 허가", Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -155,26 +154,35 @@ public class MainActivity extends AppCompatActivity {
                     body = null;
                 } else {
                     // 이미지 리사이징
+
+                    Log.d("Log", "이미지 리사이징");
                     BitmapFactory.Options options = new BitmapFactory.Options();
 
                     InputStream in = null; // here, you need to get your context.
                     try {
                         in = getContentResolver().openInputStream(data);
+                        Log.d("Log", "in : " + data);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
+                        Log.d("Log", "in : error");
                     }
 
                     // 이미지 압축
                     Bitmap bitmap = BitmapFactory.decodeStream(in, null, options); // InputStream 으로부터 Bitmap 생성
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+                    Log.d("Log", "bitmap : " + bitmap);
+
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
                     // 압축 옵션( JPEG, PNG ) , 품질 설정 ( 0 - 100까지의 int형 ), 압축된 바이트 배열을 담을 스트림
                     RequestBody photoBody = RequestBody.create(MediaType.parse("user_image/jpg"), baos.toByteArray());
 
                     File photo = new File(imgUrl); // 가져온 파일의 이름 가져옴
+                    Log.d("Log", "photo : " + photo);
 
                     // MultipartBody.Part 실제 파일의 이름을 보내기 위해 사용
                     body = MultipartBody.Part.createFormData("user_image", photo.getName(), photoBody);
+                    Log.d("Log", "body : " + body);
                 }
 
                 retrofit2.Call<Lpr_result> lpr_resultCall = service.getTexiResult(auth_key, body);
@@ -198,17 +206,20 @@ public class MainActivity extends AppCompatActivity {
                                         Intent intent = new Intent(MainActivity.this, ResultActivity.class);
                                         intent.putExtra("isTaxi", "ok");
                                         intent.putExtra("image", galleryPath);
+                                        intent.putExtra("cameraImg", imgUrl);
                                         startActivity(intent);
                                     } else {
                                         Intent intent = new Intent(MainActivity.this, ResultActivity.class);
                                         intent.putExtra("isTaxi", "no");
                                         intent.putExtra("image", galleryPath);
+                                        intent.putExtra("cameraImg", imgUrl);
                                         startActivity(intent);
                                     }
                                 } else {
                                     Intent intent = new Intent(MainActivity.this, ResultActivity.class);
                                     intent.putExtra("isTaxi", "no");
                                     intent.putExtra("image", galleryPath);
+                                    intent.putExtra("cameraImg", imgUrl);
                                     startActivity(intent);
                                 }
                             } else {
@@ -220,6 +231,7 @@ public class MainActivity extends AppCompatActivity {
                                         intent.putExtra("isTaxi", "ok");
                                         Log.d("Log", "이미지 테스트" + galleryPath);
                                         intent.putExtra("image", galleryPath);
+                                        intent.putExtra("cameraImg", imgUrl);
                                         startActivity(intent);
                                     } else {
                                         Intent intent = new Intent(MainActivity.this, ResultActivity.class);
@@ -227,6 +239,7 @@ public class MainActivity extends AppCompatActivity {
 
                                         Log.d("Log", "이미지 테스트" + galleryPath);
                                         intent.putExtra("image", galleryPath);
+                                        intent.putExtra("cameraImg", imgUrl);
                                         startActivity(intent);
 
                                     }
@@ -236,6 +249,7 @@ public class MainActivity extends AppCompatActivity {
 
                                     Log.d("Log", "이미지 테스트" + galleryPath);
                                     intent.putExtra("image", galleryPath);
+                                    intent.putExtra("cameraImg", imgUrl);
                                     startActivity(intent);
                                 }
                             }
@@ -298,6 +312,7 @@ public class MainActivity extends AppCompatActivity {
                 Bitmap bitmap;
                 cameraPath = mCurrentPhotoPath;
                     bitmap = BitmapFactory.decodeFile(cameraPath);
+                Log.d("Log", "mcurrent : " + mCurrentPhotoPath);
 
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                     ExifInterface exif = new ExifInterface(String.valueOf(cameraPath));
@@ -305,18 +320,14 @@ public class MainActivity extends AppCompatActivity {
                     int exifDegree = exifOrientationToDegrees(exifOrientation);
                     bitmap = rotate(bitmap, exifDegree);
                     imageIv.setImageBitmap(bitmap);
-//                this.data = uri;
-//                imgUrl = String.valueOf(uri);
-//
-//                Log.d("Log", "imgUrl : " + imgUrl);
-//
-//                Log.d("Log", "uri : " + uri);
-//
-//                Glide.with(MainActivity.this)
-//                        .load(this.data)
-//                        .apply(new RequestOptions()
-//                                .centerCrop())//.circleCrop()
-//                        .into(imageIv);
+//                this.data = Uri.parse(cameraPath);
+                this.data = uri;
+                imgUrl = String.valueOf(cameraPath);
+
+
+                Log.d("Log", "imgUrl : " + imgUrl);
+
+                Log.d("Log", "data : " + this.data);
 
 
             } catch (Exception e) {
@@ -325,72 +336,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         }
-//        if (requestCode != RESULT_OK) return;
-//        Bitmap bitmap;
-//        switch (requestCode) {
-//            case CAMERA_REQUEST_CODE:
-//                if (requestCode == Activity.RESULT_OK) {
-//                    try {
-//                        this.data = data.getData();
-//
-//                        Glide.with(MainActivity.this)
-//                                .load(this.data)
-//                                .apply(new RequestOptions()
-//                                .centerCrop()
-//                                .circleCrop())
-//                                .into(imageIv);
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                } else {
-//                    imgUrl = "";
-//                }
-
-//            case CAMERA_REQUEST_CODE:
-//                try {
-//
-//                    cameraPath = mCurrentPhotoPath;
-//                    bitmap = BitmapFactory.decodeFile(cameraPath);
-//
-//                    bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-//                    ExifInterface exif = new ExifInterface(String.valueOf(cameraPath));
-//                    int exifOrientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
-//                    int exifDegree = exifOrientationToDegrees(exifOrientation);
-//                    bitmap = rotate(bitmap, exifDegree);
-//                    imageIv.setImageBitmap(bitmap);
-//
-//
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//                break;
-
-
-//
-//                super.onActivityResult(requestCode, resultCode, data);
-//                if (resultCode != RESULT_OK) return;
-//                Bitmap bitmap;
-//                switch (requestCode) {
-//                    case CAMERA_REQUEST_CODE:
-//                        try {
-//
-//                            cameraPath = mCurrentPhotoPath;
-//                            bitmap = BitmapFactory.decodeFile(cameraPath);
-//
-//                            bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-//                            ExifInterface exif = new ExifInterface(String.valueOf(cameraPath));
-//                            int exifOrientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
-//                            int exifDegree = exifOrientationToDegrees(exifOrientation);
-//                            bitmap = rotate(bitmap, exifDegree);
-//                            imageIv.setImageBitmap(bitmap);
-//
-//
-//
-//
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                        }
-//                        break;
 
     }
 

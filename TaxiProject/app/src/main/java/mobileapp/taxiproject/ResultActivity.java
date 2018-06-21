@@ -35,39 +35,44 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
         Intent intent = getIntent();
         Uri uri = intent.getParcelableExtra("uri");
         String cameraPath = intent.getStringExtra("cameraPath");
-        String galleryPath = intent.getStringExtra("galleryPath");
+//        String galleryPath = intent.getStringExtra("galleryPath");
         String image = intent.getStringExtra("image");
 
         Log.d("Log", "imgage : " + image);
 
-        Glide.with(ResultActivity.this)
-                .load(image)
-                .apply(new RequestOptions()
-                        .centerCrop())//.circleCrop()
-                .into(resultView);
-
-        String path="";
-        if (galleryPath != null && cameraPath == null) {
-            path = galleryPath;
-        } else if (galleryPath == null && cameraPath != null) {
-            path = cameraPath;
+        if (cameraPath == null && image != null) {
+            Glide.with(ResultActivity.this)
+                    .load(image)
+                    .apply(new RequestOptions()
+                            .centerCrop())//.circleCrop()
+                    .into(resultView);
         }
+        else {
 
-        try {
+            try {
 //            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
 //            resultView.setImageBitmap(bitmap);
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inSampleSize=2;
-            Bitmap bitmap = BitmapFactory.decodeFile(path, options);
-            ExifInterface exif = new ExifInterface(path);
-            int exifOrientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
-            int exifDegree = exifOrientationToDegrees(exifOrientation);
-            bitmap = rotate(bitmap, exifDegree);
-            resultView.setImageBitmap(bitmap);
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inSampleSize=2;
+                Bitmap bitmap = BitmapFactory.decodeFile(cameraPath, options);
+                ExifInterface exif = new ExifInterface(cameraPath);
+                int exifOrientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+                int exifDegree = exifOrientationToDegrees(exifOrientation);
+                bitmap = rotate(bitmap, exifDegree);
+                resultView.setImageBitmap(bitmap);
 
-        } catch (Exception e) {
-            e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+
+//        String path="";
+//        if (image != null && cameraPath == null) {
+//            path = image;
+//        } else if (image == null && cameraPath != null) {
+//            path = cameraPath;
+//        }
+
 
         emergency.setOnClickListener(this);
 
