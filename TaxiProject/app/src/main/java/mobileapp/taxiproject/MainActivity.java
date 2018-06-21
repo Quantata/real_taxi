@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPermissionGranted() { //권한이 모두 허용되고나서 실행됨
                 permissionBoolean = true;
-                Toast.makeText(MainActivity.this, "권한 허가", Toast.LENGTH_LONG).show();
+//                Toast.makeText(MainActivity.this, "권한 허가", Toast.LENGTH_LONG).show();
             }
 
             @Override

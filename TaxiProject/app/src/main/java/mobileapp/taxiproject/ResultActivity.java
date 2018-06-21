@@ -51,6 +51,7 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
             int exifDegree = exifOrientationToDegrees(exifOrientation);
             bitmap = rotate(bitmap, exifDegree);
             resultView.setImageBitmap(bitmap);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -60,16 +61,17 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
 
         if(intent.getStringExtra("isTaxi").equals("ok")){
             emergency.setVisibility(View.INVISIBLE);
-            textResult.setText("택시가 맞습니다!\n안심하고 타세요!!");
+            textResult.setText("택시가 맞습니다!"+"\n"+"안심하고 타세요!!");
         }
         else{
             emergency.setVisibility(View.VISIBLE);
-            textResult.setText("택시가 아닙니다!\\n조심하세요!!\"");
+            textResult.setText("택시가 아닙니다!"+"\n"+"조심하세요!!");
         }
     }
 
     public void onClick(View v){
         switch (v.getId()){
+
 
             case R.id.emergency:
                 startActivity(new Intent("android.intent.action.DIAL",

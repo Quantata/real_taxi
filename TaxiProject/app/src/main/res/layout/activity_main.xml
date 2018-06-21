@@ -30,7 +30,7 @@
         android:layout_height="250dp"
         android:layout_below="@+id/toolbar"
         android:layout_centerHorizontal="true"
-        android:background="#b5b5b5"
+        android:background="#f2f2f2"
         android:scaleType="fitXY" />
 
     <TextView
@@ -59,7 +59,7 @@
             android:layout_height="50dp"
             android:layout_below="@+id/imageIv"
             android:layout_marginRight="35dp"
-            android:background="@drawable/camera"
+            android:background="@drawable/button_selector"
             android:gravity="center_horizontal" />
 
         <ImageButton
@@ -69,7 +69,7 @@
             android:layout_below="@+id/imageIv"
             android:layout_marginLeft="35dp"
             android:layout_toRightOf="@+id/cameraBtn"
-            android:background="@drawable/gallery"
+            android:background="@drawable/gallery_button_selector"
             android:text="GALLERY" />
 
     </LinearLayout>
