@@ -35,14 +35,14 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
         Intent intent = getIntent();
         Uri uri = intent.getParcelableExtra("uri");
         String cameraPath = intent.getStringExtra("cameraPath");
-//        String galleryPath = intent.getStringExtra("galleryPath");
-        String image = intent.getStringExtra("image");
+        String galleryPath = intent.getStringExtra("galleryPath");
+//        String image = intent.getStringExtra("image");
 
-        Log.d("Log", "imgage : " + image);
+        Log.d("Log", "imgage : " + cameraPath);
 
-        if (cameraPath == null && image != null) {
+        if (galleryPath == null && cameraPath != null) {
             Glide.with(ResultActivity.this)
-                    .load(image)
+                    .load(galleryPath)
                     .apply(new RequestOptions()
                             .centerCrop())//.circleCrop()
                     .into(resultView);

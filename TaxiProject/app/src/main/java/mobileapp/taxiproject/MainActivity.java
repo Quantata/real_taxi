@@ -205,21 +205,21 @@ public class MainActivity extends AppCompatActivity {
                                     if (text.equals("아") || text.equals("바") || text.equals("사") || text.equals("자")) {
                                         Intent intent = new Intent(MainActivity.this, ResultActivity.class);
                                         intent.putExtra("isTaxi", "ok");
-                                        intent.putExtra("image", galleryPath);
-                                        intent.putExtra("cameraImg", imgUrl);
+                                        intent.putExtra("galleryPath", galleryPath);
+                                        intent.putExtra("cameraPath", cameraPath);
                                         startActivity(intent);
                                     } else {
                                         Intent intent = new Intent(MainActivity.this, ResultActivity.class);
                                         intent.putExtra("isTaxi", "no");
-                                        intent.putExtra("image", galleryPath);
-                                        intent.putExtra("cameraImg", imgUrl);
+                                        intent.putExtra("galleryPath", galleryPath);
+                                        intent.putExtra("cameraPath", cameraPath);
                                         startActivity(intent);
                                     }
                                 } else {
                                     Intent intent = new Intent(MainActivity.this, ResultActivity.class);
                                     intent.putExtra("isTaxi", "no");
-                                    intent.putExtra("image", galleryPath);
-                                    intent.putExtra("cameraImg", imgUrl);
+                                    intent.putExtra("galleryPath", galleryPath);
+                                    intent.putExtra("cameraPath", cameraPath);
                                     startActivity(intent);
                                 }
                             } else {
@@ -230,16 +230,16 @@ public class MainActivity extends AppCompatActivity {
                                         Intent intent = new Intent(MainActivity.this, ResultActivity.class);
                                         intent.putExtra("isTaxi", "ok");
                                         Log.d("Log", "이미지 테스트" + galleryPath);
-                                        intent.putExtra("image", galleryPath);
-                                        intent.putExtra("cameraImg", imgUrl);
+                                        intent.putExtra("galleryPath", galleryPath);
+                                        intent.putExtra("cameraPath", cameraPath);
                                         startActivity(intent);
                                     } else {
                                         Intent intent = new Intent(MainActivity.this, ResultActivity.class);
                                         intent.putExtra("isTaxi", "no");
 
                                         Log.d("Log", "이미지 테스트" + galleryPath);
-                                        intent.putExtra("image", galleryPath);
-                                        intent.putExtra("cameraImg", imgUrl);
+                                        intent.putExtra("galleryPath", galleryPath);
+                                        intent.putExtra("cameraPath", cameraPath);
                                         startActivity(intent);
 
                                     }
@@ -248,8 +248,8 @@ public class MainActivity extends AppCompatActivity {
                                     intent.putExtra("isTaxi", "no");
 
                                     Log.d("Log", "이미지 테스트" + galleryPath);
-                                    intent.putExtra("image", galleryPath);
-                                    intent.putExtra("cameraImg", imgUrl);
+                                    intent.putExtra("galleryPath", galleryPath);
+                                    intent.putExtra("cameraPath", cameraPath);
                                     startActivity(intent);
                                 }
                             }
@@ -322,7 +322,7 @@ public class MainActivity extends AppCompatActivity {
                     imageIv.setImageBitmap(bitmap);
 //                this.data = Uri.parse(cameraPath);
                 this.data = uri;
-                imgUrl = String.valueOf(cameraPath);
+                imgUrl = cameraPath;
 
 
                 Log.d("Log", "imgUrl : " + imgUrl);
