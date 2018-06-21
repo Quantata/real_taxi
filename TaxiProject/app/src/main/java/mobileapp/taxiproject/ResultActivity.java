@@ -10,10 +10,14 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 public class ResultActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -32,6 +36,15 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
         Uri uri = intent.getParcelableExtra("uri");
         String cameraPath = intent.getStringExtra("cameraPath");
         String galleryPath = intent.getStringExtra("galleryPath");
+        String image = intent.getStringExtra("image");
+
+        Log.d("Log", "imgage : " + image);
+
+        Glide.with(ResultActivity.this)
+                .load(image)
+                .apply(new RequestOptions()
+                        .centerCrop())//.circleCrop()
+                .into(resultView);
 
         String path="";
         if (galleryPath != null && cameraPath == null) {

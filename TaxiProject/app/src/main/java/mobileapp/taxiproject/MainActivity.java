@@ -66,10 +66,9 @@ public class MainActivity extends AppCompatActivity {
     Boolean getPermissionBoolean = false;
     private final int CAMERA_REQUEST_CODE = 1;
     Uri uri;
-//    String getmCurrentPhotoPath;
-//    String galleryPath;
+    //    String getmCurrentPhotoPath;
+    String galleryPath;
     String cameraPath;
-
 
 
     @Override
@@ -93,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPermissionGranted() { //권한이 모두 허용되고나서 실행됨
                 permissionBoolean = true;
-//                Toast.makeText(MainActivity.this, "권한 허가", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "권한 허가", Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -115,23 +114,6 @@ public class MainActivity extends AppCompatActivity {
         cameraBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-//                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//
-//                File pictureFile = null;
-//                try {
-//                    pictureFile = createImageFile();
-//                } catch (IOException e) {
-//                    Toast.makeText(MainActivity.this, "pictureFile 에러", Toast.LENGTH_LONG).show();
-//                }
-//
-//                if (pictureFile != null) {
-//                    uri = FileProvider.getUriForFile(MainActivity.this, "mobileapp.taxiproject.fileprovider", pictureFile);
-//                    intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-//                    startActivityForResult(intent, CAMERA_REQUEST_CODE);
-//                }
-
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
                 File pictureFile = null;
@@ -206,25 +188,56 @@ public class MainActivity extends AppCompatActivity {
 
                             Toast.makeText(getApplicationContext(), response.body().lpr_result.plate_num, Toast.LENGTH_SHORT).show();
 
-                            int num = Integer.parseInt(response.body().lpr_result.plate_num.substring(0,2));
-                            String text = response.body().lpr_result.plate_num.substring(2, 3);
-                            if(num >= 0 && num <=69){
-                                if (text.equals("아") || text.equals("바") || text.equals("사") || text.equals("자")) {
-                                    Intent intent = new Intent(MainActivity.this, ResultActivity.class);
-                                    intent.putExtra("isTaxi", "ok");
-                                    startActivity(intent);
-                                }
-                                else {
+                            String first_text = response.body().lpr_result.plate_num.substring(0, 2);
+                            if (first_text.equals("서울")) {
+                                int num = Integer.parseInt(response.body().lpr_result.plate_num.substring(2, 4));
+                                String text = response.body().lpr_result.plate_num.substring(4, 5);
+
+                                if (num >= 0 && num <= 69) {
+                                    if (text.equals("아") || text.equals("바") || text.equals("사") || text.equals("자")) {
+                                        Intent intent = new Intent(MainActivity.this, ResultActivity.class);
+                                        intent.putExtra("isTaxi", "ok");
+                                        intent.putExtra("image", galleryPath);
+                                        startActivity(intent);
+                                    } else {
+                                        Intent intent = new Intent(MainActivity.this, ResultActivity.class);
+                                        intent.putExtra("isTaxi", "no");
+                                        intent.putExtra("image", galleryPath);
+                                        startActivity(intent);
+                                    }
+                                } else {
                                     Intent intent = new Intent(MainActivity.this, ResultActivity.class);
                                     intent.putExtra("isTaxi", "no");
+                                    intent.putExtra("image", galleryPath);
                                     startActivity(intent);
-
                                 }
-                            }
-                            else {
-                                Intent intent = new Intent(MainActivity.this, ResultActivity.class);
-                                intent.putExtra("isTaxi", "no");
-                                startActivity(intent);
+                            } else {
+                                int num = Integer.parseInt(response.body().lpr_result.plate_num.substring(0, 2));
+                                String text = response.body().lpr_result.plate_num.substring(2, 3);
+                                if (num >= 0 && num <= 69) {
+                                    if (text.equals("아") || text.equals("바") || text.equals("사") || text.equals("자")) {
+                                        Intent intent = new Intent(MainActivity.this, ResultActivity.class);
+                                        intent.putExtra("isTaxi", "ok");
+                                        Log.d("Log", "이미지 테스트" + galleryPath);
+                                        intent.putExtra("image", galleryPath);
+                                        startActivity(intent);
+                                    } else {
+                                        Intent intent = new Intent(MainActivity.this, ResultActivity.class);
+                                        intent.putExtra("isTaxi", "no");
+
+                                        Log.d("Log", "이미지 테스트" + galleryPath);
+                                        intent.putExtra("image", galleryPath);
+                                        startActivity(intent);
+
+                                    }
+                                } else {
+                                    Intent intent = new Intent(MainActivity.this, ResultActivity.class);
+                                    intent.putExtra("isTaxi", "no");
+
+                                    Log.d("Log", "이미지 테스트" + galleryPath);
+                                    intent.putExtra("image", galleryPath);
+                                    startActivity(intent);
+                                }
                             }
 
 
@@ -251,7 +264,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == REQ_CODE_SELECT_IMAGE){
+        if (requestCode == REQ_CODE_SELECT_IMAGE) {
 
             if (resultCode == Activity.RESULT_OK) {
                 try {
@@ -262,27 +275,28 @@ public class MainActivity extends AppCompatActivity {
                     this.data = data.getData();
 
                     Log.d("Log", "갤러리에서 this.data : " + this.data);
+                    galleryPath = getPath(this.data);
 
                     Glide.with(MainActivity.this)
                             .load(this.data)
                             .apply(new RequestOptions()
                                     .centerCrop())//.circleCrop()
                             .into(imageIv);
+
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             } else {
                 imgUrl = "";
             }
-        }
-
-        else {
+        } else {
 
             try {
 
                 Log.d("Log", "카메라 들어옴..!!!!");
                 Bitmap bitmap;
-                    cameraPath = mCurrentPhotoPath;
+                cameraPath = mCurrentPhotoPath;
                     bitmap = BitmapFactory.decodeFile(cameraPath);
 
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
@@ -291,13 +305,23 @@ public class MainActivity extends AppCompatActivity {
                     int exifDegree = exifOrientationToDegrees(exifOrientation);
                     bitmap = rotate(bitmap, exifDegree);
                     imageIv.setImageBitmap(bitmap);
-                    this.data = uri;
-                    Log.d("Log", "uri : " + uri);
+//                this.data = uri;
+//                imgUrl = String.valueOf(uri);
+//
+//                Log.d("Log", "imgUrl : " + imgUrl);
+//
+//                Log.d("Log", "uri : " + uri);
+//
+//                Glide.with(MainActivity.this)
+//                        .load(this.data)
+//                        .apply(new RequestOptions()
+//                                .centerCrop())//.circleCrop()
+//                        .into(imageIv);
 
 
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
 
         }
@@ -382,6 +406,7 @@ public class MainActivity extends AppCompatActivity {
         String imgName = imgPath.substring(imgPath.lastIndexOf("/") + 1);
 
         imgUrl = imgPath;
+        Log.d("Log", "imgUrl : " + imgUrl);
         return imgName;
     }
 
