@@ -195,64 +195,41 @@ public class MainActivity extends AppCompatActivity {
                             Log.d("Log", response.body().lpr_result.plate_num);
 
                             Toast.makeText(getApplicationContext(), response.body().lpr_result.plate_num, Toast.LENGTH_SHORT).show();
+                            int num=0;
 
+
+                            String text = "";
                             String first_text = response.body().lpr_result.plate_num.substring(0, 2);
                             if (first_text.equals("서울")) {
-                                int num = Integer.parseInt(response.body().lpr_result.plate_num.substring(2, 4));
-                                String text = response.body().lpr_result.plate_num.substring(4, 5);
-
-                                if (num >= 0 && num <= 69) {
-                                    if (text.equals("아") || text.equals("바") || text.equals("사") || text.equals("자")) {
-                                        Intent intent = new Intent(MainActivity.this, ResultActivity.class);
-                                        intent.putExtra("isTaxi", "ok");
-                                        intent.putExtra("galleryPath", galleryPath);
-                                        intent.putExtra("cameraPath", cameraPath);
-                                        startActivity(intent);
-                                    } else {
-                                        Intent intent = new Intent(MainActivity.this, ResultActivity.class);
-                                        intent.putExtra("isTaxi", "no");
-                                        intent.putExtra("galleryPath", galleryPath);
-                                        intent.putExtra("cameraPath", cameraPath);
-                                        startActivity(intent);
-                                    }
-                                } else {
-                                    Intent intent = new Intent(MainActivity.this, ResultActivity.class);
-                                    intent.putExtra("isTaxi", "no");
-                                    intent.putExtra("galleryPath", galleryPath);
-                                    intent.putExtra("cameraPath", cameraPath);
-                                    startActivity(intent);
-                                }
-                            } else {
-                                int num = Integer.parseInt(response.body().lpr_result.plate_num.substring(0, 2));
-                                String text = response.body().lpr_result.plate_num.substring(2, 3);
-                                if (num >= 0 && num <= 69) {
-                                    if (text.equals("아") || text.equals("바") || text.equals("사") || text.equals("자")) {
-                                        Intent intent = new Intent(MainActivity.this, ResultActivity.class);
-                                        intent.putExtra("isTaxi", "ok");
-                                        Log.d("Log", "이미지 테스트" + galleryPath);
-                                        intent.putExtra("galleryPath", galleryPath);
-                                        intent.putExtra("cameraPath", cameraPath);
-                                        startActivity(intent);
-                                    } else {
-                                        Intent intent = new Intent(MainActivity.this, ResultActivity.class);
-                                        intent.putExtra("isTaxi", "no");
-
-                                        Log.d("Log", "이미지 테스트" + galleryPath);
-                                        intent.putExtra("galleryPath", galleryPath);
-                                        intent.putExtra("cameraPath", cameraPath);
-                                        startActivity(intent);
-
-                                    }
-                                } else {
-                                    Intent intent = new Intent(MainActivity.this, ResultActivity.class);
-                                    intent.putExtra("isTaxi", "no");
-
-                                    Log.d("Log", "이미지 테스트" + galleryPath);
-                                    intent.putExtra("galleryPath", galleryPath);
-                                    intent.putExtra("cameraPath", cameraPath);
-                                    startActivity(intent);
-                                }
+                                num = Integer.parseInt(response.body().lpr_result.plate_num.substring(2, 4));
+                                text = response.body().lpr_result.plate_num.substring(4, 5);
                             }
+                            else{
+                                num = Integer.parseInt(response.body().lpr_result.plate_num.substring(0, 2));
+                                text = response.body().lpr_result.plate_num.substring(2, 3);
+                            }
+
+                                if (num >= 0 && num <= 69) {
+                                    if (text.equals("아") || text.equals("바") || text.equals("사") || text.equals("자")) {
+                                        Intent intent = new Intent(MainActivity.this, ResultActivity.class);
+                                        intent.putExtra("isTaxi", "ok");
+                                        intent.putExtra("galleryPath", galleryPath);
+                                        intent.putExtra("cameraPath", cameraPath);
+                                        startActivity(intent);
+                                    } else {
+                                        Intent intent = new Intent(MainActivity.this, ResultActivity.class);
+                                        intent.putExtra("isTaxi", "no");
+                                        intent.putExtra("galleryPath", galleryPath);
+                                        intent.putExtra("cameraPath", cameraPath);
+                                        startActivity(intent);
+                                    }
+                                } else {
+                                    Intent intent = new Intent(MainActivity.this, ResultActivity.class);
+                                    intent.putExtra("isTaxi", "no");
+                                    intent.putExtra("galleryPath", galleryPath);
+                                    intent.putExtra("cameraPath", cameraPath);
+                                    startActivity(intent);
+                                }
 
 
                         }

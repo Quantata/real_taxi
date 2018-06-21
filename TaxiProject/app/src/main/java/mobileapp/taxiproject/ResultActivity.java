@@ -38,9 +38,9 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
         String galleryPath = intent.getStringExtra("galleryPath");
 //        String image = intent.getStringExtra("image");
 
-        Log.d("Log", "imgage : " + cameraPath);
+        Log.d("Log", "cameraPath : " + cameraPath);
 
-        if (galleryPath == null && cameraPath != null) {
+        if (cameraPath == null && galleryPath != null) {
             Glide.with(ResultActivity.this)
                     .load(galleryPath)
                     .apply(new RequestOptions()
